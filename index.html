@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>JuTE</title>
+    <link rel="stylesheet" href="indexStyles.css" />
+</head>
+<body>
+
+    <div id="formatingType">
+        <button type="button" id='stext'>Text</button>
+        <button type="button" id='shtml'>HTML</button>
+    </div>
+    <div id="controls">
+
+        <button type="button" id="bold" class="font-bold">B</button>
+
+        <button type="button" id="italic" class="italic">I</button>
+
+        <button type="button" id="link" class="link">Link</button>
+
+        <button type="button" id="ol" class="ol">OList</button>
+
+        <button type="button" id="ul" class="ul">UList</button>
+
+        <select id="fonts">
+            <option value="Fonts" selected hidden>Fonts</option>
+            <option value="Normal">Normal</option>
+            <option value="Arial">Arial</option>
+            <option value="Comic Sans MS">Comic Sans MS</option>
+            <option value="Courier New">Courier New</option>
+            <option value="Monotype Corsiva">Monotype</option>
+            <option value="Tahoma New">Tahoma</option>
+            <option value="Times">Times</option>
+            <option value="Trebuchet New">Trebuchet</option>
+        </select>
+
+        <select id="fontSize">
+            <option value="FontSize" selected hidden>FontSize</option>
+            <option value="1">XX-Small</option>
+            <option value="2">X-Small</option>
+            <option value="3">Small</option>
+            <option value="4">Medium</option>
+            <option value="5">Large</option>
+            <option value="6">X-Large</option>
+            <option value="7">XX-Large</option>
+        </select>
+
+    </div>
+
+    <div>
+        <iframe id="textEditor"></iframe>
+    </div>
+
+    <textarea name="text" id="text"></textarea>
+
+
+    <script src="libs/jquery-1.11.3.js"></script>
+    <script src="texteditor.js"></script>
+
+</body>
+</html>
