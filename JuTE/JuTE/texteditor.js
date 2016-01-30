@@ -41,6 +41,24 @@ $(document).ready(function () {
         ToList();
     });
 
+    $("#undo").on('click', function () {
+        if ($(this).hasClass("selected")) {
+            $(this).removeClass("selected");
+        } else {
+            $(this).addClass("selected");
+        }
+        Undo();
+    });
+
+    $("#redo").on('click', function () {
+        if ($(this).hasClass("selected")) {
+            $(this).removeClass("selected");
+        } else {
+            $(this).addClass("selected");
+        }
+        Redo();
+    });
+
     $("#fonts").on('change', function () {
         changeFont($("#fonts").val());
     });
@@ -51,7 +69,7 @@ $(document).ready(function () {
 
     $("#link").click(function () {
         var urlp = prompt("What is the link:", "http://");
-        url(urlp);
+        makeUrl(urlp);
     });
 
     $("#stext").click(function () {
@@ -96,6 +114,19 @@ function ToList() {
     edit.focus();
 }
 
+function Undo() {
+    var edit = document.getElementById("textEditor").contentWindow;
+    edit.document.execCommand("undo", false, "");
+    edit.focus();
+}
+
+function Redo() {
+    var edit = document.getElementById("textEditor").contentWindow;
+    edit.focus();
+    edit.document.execCommand("redo", false, "");
+    edit.focus();
+}
+
 function changeFont(font) {
     var edit = document.getElementById("textEditor").contentWindow;
     edit.focus();
@@ -110,7 +141,7 @@ function changeFontSize(fontSize) {
     edit.focus();
 }
 
-function url(url) {
+function makeUrl(url) {
     var edit = document.getElementById("textEditor").contentWindow;
     edit.focus();
     edit.document.execCommand("Createlink", false, url);
@@ -118,7 +149,6 @@ function url(url) {
 }
 
 setInterval(function () {
-    var gyt = $("#textEditor").contents().find("body").html().match(/@/g);
     if ($("#textEditor").contents().find("body").html().match(/@/g) >= 0) { } else {
         $("#text").val($("#textEditor").contents().find("body").html());
     }
