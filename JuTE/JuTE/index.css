@@ -1,0 +1,11 @@
+﻿body {
+    background-color: gray;
+    text-align: center;
+}
+
+#container, #container1, #container2 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 700px;
+    width: 500px;
+}

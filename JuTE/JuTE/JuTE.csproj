@@ -57,10 +57,11 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="index.css" />
     <Content Include="index.html" />
-    <Content Include="indexStyles.css" />
+    <Content Include="jute.css" />
+    <Content Include="jute.js" />
     <Content Include="libs\jquery-1.11.3.js" />
-    <Content Include="texteditor.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

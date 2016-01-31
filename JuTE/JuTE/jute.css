@@ -1,0 +1,58 @@
+﻿.jute {
+    height: inherit;
+}
+
+    .jute .controls {
+        background-color: darkgray;
+    }
+
+        .jute .controls .bold {
+            font-weight: bold;
+            color: black;
+            margin-right: 10px;
+        }
+
+        .jute .controls .italic {
+            font-style: italic;
+            margin-right: 10px;
+        }
+
+        .jute .controls .link,
+        .jute .controls .ol,
+        .jute .controls .ul,
+        .jute .controls .undo,
+        .jute .controls .redo {
+            margin-right: 10px;
+        }
+
+        .jute .controls .textarea {
+            display: none;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 10px;
+            overflow: auto;
+            background-color: white;
+            width: 800px;
+            height: 900px;
+            border: 2px solid #CCC;
+            border-radius: 20px;
+        }
+
+        .jute .controls .selected {
+            background-color: bisque;
+        }
+
+    .jute .textEditor {
+        height: inherit;
+        padding-left: 5px;
+        padding-right: 5px;
+        background: white;
+    }
+
+        .jute .textEditor iframe {
+            background-color: white;
+            height: 100%;
+            width: 100%;
+            border: none;
+            overflow: auto;
+        }
