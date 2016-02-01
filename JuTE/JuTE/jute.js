@@ -2,8 +2,8 @@
 
     var controlsMarkup = '<div class="jute">' +
                              '<div class="controls">' +
-                                 '<button type="button" data-command="bold" class="button toggle bold">B</button>' +
-                                 '<button type="button" data-command="italic" class="button toggle italic">I</button>' +
+                                 '<button type="button" data-command="bold" class="button bold">B</button>' +
+                                 '<button type="button" data-command="italic" class="button italic">I</button>' +
                                  '<button type="button" data-command="createLink" class="button link">Link</button>' +
                                  '<button type="button" data-command="insertOrderedList" class="button ol">OList</button>' +
                                  '<button type="button" data-command="insertUnorderedList" class="button ul">UList</button>' +
@@ -32,10 +32,17 @@
                                      '<option value="6">X-Large</option>' +
                                      '<option value="7">XX-Large</option>' +
                                  '</select>' +
+
+                                 '<input type="file" class="browsedFile">' +
+                                 '<button class="upload">Upload</button>' +
+
                              '</div>' +
 
                              '<div class="textEditor">' +
-                                 '<iframe></iframe>' +
+                                 '<iframe src="about:blank"></iframe>' +
+                                 '<div class="imageContainer";>' +
+                                 '<p> Drag image here! </p>' +
+                                 '</div>' +
                              '</div>' +
                          '</div>';
 
@@ -45,6 +52,8 @@
         $(selector).find("iframe").contents().prop('designMode', 'on');
 
         initializeHandlers(selector);
+
+        uploadImage(selector);
     };
 
     var initializeHandlers = function (selector) {
@@ -54,10 +63,6 @@
             .on("click", function () {
                 var $this = $(this),
                     command = $this.data("command");
-
-                if ($this.hasClass("toggle")) {
-                    $this.toggleClass("selected");
-                }
 
                 if ($this.hasClass("link")) {
                     executeCommand(selector, command, prompt("What is the link:", "http://"));
@@ -83,7 +88,54 @@
                                  .contentWindow;
         textEditor.document.execCommand(command, false, value);
         textEditor.focus();
-    }
+    };
+
+    var uploadImage = function (selector) {
+        var target = document.querySelector(selector).querySelector(".imageContainer");
+
+        target.addEventListener("dragover", function (e) {
+            e.preventDefault();
+        }, false);
+
+        target.addEventListener("dragleave", function (e) {
+            e.preventDefault();
+        }, false);
+
+        target.addEventListener("drop", function (e) {
+            e.preventDefault();
+            loadFile(e.dataTransfer.files[0], document.querySelector(selector).querySelector("iframe"));
+        }, false);
+
+        document.addEventListener("dragover", function (e) {
+            e.preventDefault();
+        }, false);
+
+        document.addEventListener("dragleave", function (e) {
+            e.preventDefault();
+        }, false);
+
+        document.addEventListener("drop", function (e) {
+            e.preventDefault();
+        }, false);
+
+        document.querySelector(selector).querySelector(".upload").addEventListener("click", function () {
+            var file = document.querySelector(selector).querySelector(".browsedFile").files[0];
+            loadFile(file, document.querySelector(selector).querySelector("iframe"));
+        }, false);
+
+        var loadFile = function (f, destination) {
+
+            var reader = new FileReader();
+
+            reader.onload = function (event) {
+                var newImage = document.createElement("img");
+                newImage.src = event.target.result;
+                destination.contentWindow.document.getElementsByTagName("body")[0].appendChild(newImage);
+            };
+
+            reader.readAsDataURL(f);
+        }
+    };
 
     return Jute;
 })();
