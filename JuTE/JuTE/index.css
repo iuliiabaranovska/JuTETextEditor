@@ -1,11 +1,19 @@
-﻿body {
-    background-color: gray;
+﻿html {
+    height: 100%;
+}
+
+body {
+    background-image: linear-gradient(#F0F4F5, #b0c9d1);
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    border: none;
     text-align: center;
 }
 
 #container, #container1, #container2 {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    height: 700px;
-    width: 500px;
+    height: calc(100% - 42px);
+    width: 33%;
+    border: 1px solid #8ABECF;
+    margin: 20px;
 }

@@ -2,13 +2,13 @@
 
     var controlsMarkup = '<div class="jute">' +
                              '<div class="controls">' +
-                                 '<button type="button" data-command="bold" class="button bold">B</button>' +
-                                 '<button type="button" data-command="italic" class="button italic">I</button>' +
-                                 '<button type="button" data-command="createLink" class="button link">Link</button>' +
-                                 '<button type="button" data-command="insertOrderedList" class="button ol">OList</button>' +
-                                 '<button type="button" data-command="insertUnorderedList" class="button ul">UList</button>' +
-                                 '<button type="button" data-command="undo" class="button undo">Undo</button>' +
-                                 '<button type="button" data-command="redo" class="button redo">Redo</button>' +
+                                 '<button type="button" data-command="bold" class="button bold"></button>' +
+                                 '<button type="button" data-command="italic" class="button italic"></button>' +
+                                 '<button type="button" data-command="createLink" class="button link"></button>' +
+                                 '<button type="button" data-command="insertOrderedList" class="button ol"></button>' +
+                                 '<button type="button" data-command="insertUnorderedList" class="button ul"></button>' +
+                                 '<button type="button" data-command="undo" class="button undo"></button>' +
+                                 '<button type="button" data-command="redo" class="button redo"></button>' +
 
                                  '<select data-command="fontName" class="fonts">' +
                                      '<option value="Fonts" selected hidden>Fonts</option>' +
@@ -41,7 +41,7 @@
                              '<div class="textEditor">' +
                                  '<iframe src="about:blank"></iframe>' +
                                  '<div class="imageContainer";>' +
-                                 '<p> Drag image here! </p>' +
+                                 '<span class=".imageRull"><b>Drag image here!<b></span>' +
                                  '</div>' +
                              '</div>' +
                          '</div>';

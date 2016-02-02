@@ -1,37 +1,54 @@
 ﻿.jute {
-    height: inherit;
+    height: 100%;
 }
 
     .jute .controls {
-        background-color: darkgray;
-        height: 40px;
+        background-image: linear-gradient(#F0F4F5, #b0c9d1);
+        height: 60px;
     }
 
+        .jute .controls .button {
+            width: 36px;
+            height: 32px;
+            background-color: #CED4D6;
+        }
+
+            .jute .controls .button:hover {
+                background-color: #EDF7FA;
+                border: 2px solid #B0B0B0;
+                cursor: pointer;
+            }
+
         .jute .controls .bold {
-            font-weight: bold;
-            color: black;
-            margin-right: 10px;
+            background: url('icons/bold.png') no-repeat center;
         }
 
         .jute .controls .italic {
-            font-style: italic;
-            margin-right: 10px;
+            background: url('icons/italic.png') no-repeat center;
         }
 
-        .jute .controls .link,
-        .jute .controls .ol,
-        .jute .controls .ul,
-        .jute .controls .undo,
+        .jute .controls .link {
+            background: url('icons/link.png') no-repeat center;
+        }
+
+        .jute .controls .ol {
+            background: url('icons/ordered_list.png') no-repeat center;
+        }
+
+        .jute .controls .ul {
+            background: url('icons/unordered_list.png') no-repeat center;
+        }
+
+        .jute .controls .undo {
+            background: url('icons/undo.png') no-repeat center;
+        }
+
         .jute .controls .redo {
-            margin-right: 10px;
-        }
-
-        .jute .controls .selected {
-            background-color: bisque;
+            background: url('icons/redo.png') no-repeat center;
         }
 
     .jute .textEditor {
-        height: calc(100% - 40px);
+        height: calc(100% - 61px);
         padding-left: 5px;
         padding-right: 5px;
         background: white;
@@ -47,9 +64,14 @@
         }
 
         .jute .textEditor .imageContainer {
-            background-color: darkgray;
+            background-color: #b0c9d1;
             height: 10%;
             border: none;
+            border-top: 1px solid #8ABECF;
             margin-left: -5px;
             margin-right: -5px;
+        }
+
+        .jute .textEditor .imageRull {
+            text-align: center;
         }

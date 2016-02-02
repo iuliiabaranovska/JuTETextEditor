@@ -57,6 +57,18 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="icons\bold.png" />
+    <Content Include="icons\bold32.png" />
+    <Content Include="icons\font_size.png" />
+    <Content Include="icons\image.png" />
+    <Content Include="icons\italic.png" />
+    <Content Include="icons\italic32.png" />
+    <Content Include="icons\link.png" />
+    <Content Include="icons\ordered_list.png" />
+    <Content Include="icons\redo.png" />
+    <Content Include="icons\text-italics-shadow.png" />
+    <Content Include="icons\undo.png" />
+    <Content Include="icons\unordered_list.png" />
     <Content Include="index.css" />
     <Content Include="index.html" />
     <Content Include="jute.css" />
