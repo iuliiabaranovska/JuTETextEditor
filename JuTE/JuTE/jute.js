@@ -2,7 +2,7 @@
 
     var controlsMarkup = '<div class="jute">' +
                              '<div class="controls">' +
-                                  '<span class="simplyButtons">'+
+                                  '<span class="simplyButtons">' +
                                       '<button type="button" data-command="bold" class="button bold"></button>' +
                                       '<button type="button" data-command="italic" class="button italic"></button>' +
                                       '<button type="button" data-command="createLink" class="button link"></button>' +
@@ -10,7 +10,19 @@
                                       '<button type="button" data-command="insertUnorderedList" class="button ul"></button>' +
                                       '<button type="button" data-command="undo" class="button undo"></button>' +
                                       '<button type="button" data-command="redo" class="button redo"></button>' +
+                                      '<button type="button" class="button image"></button>' +
+                                      '<button type="button" data-command="justifyCenter" class="button center"></button>' +
+                                      '<button type="button" data-command="justifyLeft" class="button left"></button>' +
+                                      '<button type="button" data-command="justifyRight" class="button right"></button>' +
+                                      '<button type="button" data-command="justifyRight" class="button full"></button>' +
                                   '</span>' +
+
+                                  '<div class="messagepop pop">' +
+                                      '<input type="file" class="browsedFile">' +
+                                          '<button class="upload">Upload</button>' +
+                                      '</input>' +
+
+                                  '</div>' +
 
                                   '<span class="dropdowns">' +
                                      '<select data-command="fontName" class="fonts">' +
@@ -24,7 +36,7 @@
                                          '<option value="Times">Times</option>' +
                                          '<option value="Trebuchet New">Trebuchet</option>' +
                                     '</select>' +
-                                 
+
                                     '<select data-command="fontSize" class="fontSize">' +
                                         '<option value="FontSize" selected hidden>Fonts Size</option>' +
                                         '<option value="1">XX-Small</option>' +
@@ -36,10 +48,6 @@
                                         '<option value="7">XX-Large</option>' +
                                     '</select>' +
                                  '</span>' +
-
-                                 '<input type="file" class="browsedFile">' +
-                                 '<button class="upload">Upload</button>' +
-
                              '</div>' +
 
                              '<div class="textEditor">' +
@@ -53,7 +61,7 @@
     function Jute(selector) {
         $(selector).append(controlsMarkup);
 
-        $(selector).find("iframe").contents().prop('designMode', 'on');
+        $(selector).find("iframe").contents().prop("designMode", "on");
 
         initializeHandlers(selector);
 
@@ -62,7 +70,10 @@
 
     var initializeHandlers = function (selector) {
 
-        $(selector)
+        var $selector = $(selector),
+            $popup = $selector.find(".pop");
+
+        $selector
             .find(".button")
             .on("click", function () {
                 var $this = $(this),
@@ -73,9 +84,21 @@
                 } else {
                     executeCommand(selector, command, "");
                 }
+
+                if ($this.hasClass("image")) {
+                    $popup
+                        .toggle("slow")
+                        .find(".upload")
+                            .off("click")
+                            .on("click", function () {
+                                $popup.fadeOut();
+                                $this.toggleClass("selected");
+                            });
+                    $this.toggleClass("selected");
+                }
             });
 
-        $(selector)
+        $selector
             .find("select")
             .on("change", function () {
                 var $this = $(this),
