@@ -4,8 +4,19 @@
 
     .jute .controls {
         background-image: linear-gradient(#F0F4F5, #b0c9d1);
-        height: 60px;
+        height: 68px;
     }
+
+        .jute .controls .simplyButtons {
+            margin: 5px;
+            display: inline-block;
+        }
+
+        .jute .controls .dropdowns {
+            display: inline-block;
+            vertical-align: top;
+            margin: 5px;
+        }
 
         .jute .controls .button {
             width: 36px;
@@ -47,8 +58,22 @@
             background: url('icons/redo.png') no-repeat center;
         }
 
+        .jute .controls .fonts,
+        .jute .controls .fontSize {
+            background-color: #E6EDF0;
+            height: 32px;
+        }
+
+            .jute .controls .fonts:hover,
+            .jute .controls .fontSize:hover {
+                background-color: #EDF7FA;
+                background-color: #EDF7FA;
+                border: 2px solid #B0B0B0;
+                cursor: pointer;
+            }
+
     .jute .textEditor {
-        height: calc(100% - 61px);
+        height: calc(100% - 69px);
         padding-left: 5px;
         padding-right: 5px;
         background: white;
