@@ -51,7 +51,7 @@
                              '</div>' +
 
                              '<div class="textEditor">' +
-                                 '<iframe src="about:blank"></iframe>' +
+                                 '<iframe src="about:blank" ></iframe>' +
                                  '<div class="imageContainer";>' +
                                  '<span class=".imageRull"><b>Drag image here!<b></span>' +
                                  '</div>' +
@@ -59,16 +59,18 @@
                          '</div>';
 
     function Jute(selector) {
-        $(selector).append(controlsMarkup);
+        $(selector)
+            .append(controlsMarkup)
+            .find("iframe")
+                .contents()
+                    .prop("designMode", "on");
 
-        $(selector).find("iframe").contents().prop("designMode", "on");
-
-        initializeHandlers(selector);
-
-        uploadImage(selector);
+        initializeControlsHandlers(selector);
+        initializeImageHandler(selector);
+        initializeCopyPasteHandler(selector);
     };
 
-    var initializeHandlers = function (selector) {
+    var initializeControlsHandlers = function (selector) {
 
         var $selector = $(selector),
             $popup = $selector.find(".pop");
@@ -87,7 +89,7 @@
 
                 if ($this.hasClass("image")) {
                     $popup
-                        .toggle("slow")
+                        .fadeToggle()
                         .find(".upload")
                             .off("click")
                             .on("click", function () {
@@ -117,7 +119,7 @@
         textEditor.focus();
     };
 
-    var uploadImage = function (selector) {
+    var initializeImageHandler = function (selector) {
         var target = document.querySelector(selector).querySelector(".imageContainer");
 
         target.addEventListener("dragover", function (e) {
@@ -163,6 +165,19 @@
             reader.readAsDataURL(f);
         }
     };
+
+    var initializeCopyPasteHandler = function (selector) {
+
+        $(selector)
+            .find("iframe")
+                .contents()
+                .find("body")
+                    .on("paste", function (e) {
+                        var pastedData = e.originalEvent.clipboardData.getData('text');
+                        e.preventDefault();
+                        executeCommand(selector, "insertHTML", pastedData);
+                    });
+    }
 
     return Jute;
 })();
