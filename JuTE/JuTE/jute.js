@@ -51,19 +51,20 @@
                              '</div>' +
 
                              '<div class="textEditor">' +
-                                 '<iframe src="about:blank" ></iframe>' +
-                                 '<div class="imageContainer";>' +
+                                 '<iframe src="about:blank"></iframe>' +
+                                 '<div class="imageContainer">' +
                                  '<span class=".imageRull"><b>Drag image here!<b></span>' +
                                  '</div>' +
                              '</div>' +
                          '</div>';
 
     function Jute(selector) {
-        $(selector)
-            .append(controlsMarkup)
-            .find("iframe")
-                .contents()
-                    .prop("designMode", "on");
+
+        var $editor = $(selector)
+                            .append(controlsMarkup)
+                            .find("iframe");
+
+        setTimeout(function () { $editor.contents().prop("designMode", "on"); }, 100); //Firefox issue
 
         initializeControlsHandlers(selector);
         initializeImageHandler(selector);
