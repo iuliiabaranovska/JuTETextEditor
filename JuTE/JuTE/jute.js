@@ -3,18 +3,7 @@
     var controlsMarkup = '<div class="jute">' +
                              '<div class="controls">' +
                                   '<span class="simplyButtons">' +
-                                      '<button type="button" data-command="bold" class="button bold"></button>' +
-                                      '<button type="button" data-command="italic" class="button italic"></button>' +
-                                      '<button type="button" data-command="createLink" class="button link"></button>' +
-                                      '<button type="button" data-command="insertOrderedList" class="button ol"></button>' +
-                                      '<button type="button" data-command="insertUnorderedList" class="button ul"></button>' +
-                                      '<button type="button" data-command="undo" class="button undo"></button>' +
-                                      '<button type="button" data-command="redo" class="button redo"></button>' +
                                       '<button type="button" class="button image"></button>' +
-                                      '<button type="button" data-command="justifyCenter" class="button center"></button>' +
-                                      '<button type="button" data-command="justifyLeft" class="button left"></button>' +
-                                      '<button type="button" data-command="justifyRight" class="button right"></button>' +
-                                      '<button type="button" data-command="justifyRight" class="button full"></button>' +
                                   '</span>' +
 
                                   '<div class="messagepop pop">' +
@@ -25,28 +14,6 @@
                                   '</div>' +
 
                                   '<span class="dropdowns">' +
-                                     '<select data-command="fontName" class="fonts">' +
-                                         '<option value="Fonts" selected hidden>Fonts</option>' +
-                                         '<option value="Normal">Normal</option>' +
-                                         '<option value="Arial">Arial</option>' +
-                                         '<option value="Comic Sans MS">Comic Sans MS</option>' +
-                                         '<option value="Courier New">Courier New</option>' +
-                                         '<option value="Monotype Corsiva">Monotype</option>' +
-                                         '<option value="Tahoma New">Tahoma</option>' +
-                                         '<option value="Times">Times</option>' +
-                                         '<option value="Trebuchet New">Trebuchet</option>' +
-                                    '</select>' +
-
-                                    '<select data-command="fontSize" class="fontSize">' +
-                                        '<option value="FontSize" selected hidden>Fonts Size</option>' +
-                                        '<option value="1">XX-Small</option>' +
-                                        '<option value="2">X-Small</option>' +
-                                        '<option value="3">Small</option>' +
-                                        '<option value="4">Medium</option>' +
-                                        '<option value="5">Large</option>' +
-                                        '<option value="6">X-Large</option>' +
-                                        '<option value="7">XX-Large</option>' +
-                                    '</select>' +
                                  '</span>' +
                              '</div>' +
 
@@ -60,8 +27,59 @@
 
     function Jute(selector) {
 
+        var controls = [
+                new Button("bold"),
+                new Button("italic"),
+                new Button("createLink"),
+                new Button("insertOrderedList"),
+                new Button("insertUnorderedList"),
+                new Button("undo"),
+                new Button("redo"),
+                new Button("justifyCenter"),
+                new Button("justifyLeft"),
+                new Button("justifyRight"),
+                new Button("justifyFull")
+        ],
+            dropdowns = [
+                new DropDown("fontName", [{ value: "Fonts", text: "Fonts" },
+                                          { value: "Normal", text: "Normal" },
+                                          { value: "Arial", text: "Arial" },
+                                          { value: "Comic Sans MS", text: "Comic Sans MS" },
+                                          { value: "Courier New", text: "Courier New" },
+                                          { value: "Monotype Corsiva", text: "Monotype Corsiva" },
+                                          { value: "Tahoma New", text: "Tahoma New" },
+                                          { value: "Times", text: "Times" },
+                                          { value: "Trebuchet New", text: "Trebuchet" }]),
+
+                new DropDown("fontSize", [{ value: "FontSize", text: "Font Size" },
+                                          { value: "1", text: "XX-Small" },
+                                          { value: "2", text: "X-Small" },
+                                          { value: "3", text: "Small" },
+                                          { value: "4", text: "Medium" },
+                                          { value: "5", text: "Large" },
+                                          { value: "6", text: "X-Large" },
+                                          { value: "7", text: "XX-Large" }])],
+
+            markupButton = "",
+            markupDropdown = "",
+            i = 0;
+
+        for (i = 0; i < controls.length; i++) {
+            markupButton += controls[i].getMarkup();
+        };
+
+        for (i = 0; i < dropdowns.length; i++) {
+            markupDropdown += dropdowns[i].getMarkup();
+        };
+
+
         var $editor = $(selector)
                             .append(controlsMarkup)
+                            .find(".simplyButtons")
+                                .append(markupButton)
+                            .siblings(".dropdowns")
+                                .append(markupDropdown)
+                                .closest(selector)
                             .find("iframe");
 
         setTimeout(function () { $editor.contents().prop("designMode", "on"); }, 100); //Firefox issue
@@ -167,18 +185,78 @@
         }
     };
 
-    var initializeCopyPasteHandler = function (selector) {
+    var initializeCopyPasteHandler = function(selector) {
 
         $(selector)
             .find("iframe")
-                .contents()
-                .find("body")
-                    .on("paste", function (e) {
-                        var pastedData = e.originalEvent.clipboardData.getData('text');
-                        e.preventDefault();
-                        executeCommand(selector, "insertHTML", pastedData);
-                    });
-    }
+            .contents()
+            .find("body")
+            .on("paste", function(e) {
+                var pastedData = e.originalEvent.clipboardData.getData('text');
+                e.preventDefault();
+                executeCommand(selector, "insertHTML", pastedData);
+            });
+    };
+
+    var Button = (function () {
+
+        var cssClasses = {
+            bold: "bold",
+            italic: "italic",
+            createLink: "link",
+            insertOrderedList: "ol",
+            insertUnorderedList: "ul",
+            undo: "undo",
+            redo: "redo",
+            justifyCenter: "center",
+            justifyLeft: "left",
+            justifyRight: "right",
+            justifyFull: "full",
+        };
+
+        function Button(command) {
+            this.command = command;
+
+        };
+
+        Button.prototype.getMarkup = function () {
+            var markup = '<button type="button" data-command="' + this.command + '" class="button ' + cssClasses[this.command] + '"></button>';
+            return markup;
+        };
+
+        return Button;
+    })();
+
+    var DropDown = (function () {
+
+        var cssClasses = {
+            fontName: "fonts",
+            fontSize: "fontSize"
+        };
+
+        function DropDown(command, options) {
+            this.command = command;
+            this.options = options || [];
+        };
+
+        DropDown.prototype.getMarkup = function () {
+
+            var markup = '<select data-command="' + this.command + '" class="' + cssClasses[this.command] + '">';
+
+            markup += '<option value="' + this.options[0]["value"] + '"selected hidden>' + this.options[0]["text"] + '</option>';
+
+            for (var i = 1; i < this.options.length; i++) {
+
+                markup += '<option value="' + this.options[i]["value"] + '">' + this.options[i]["text"] + '</option>';
+            }
+
+            markup += '</select>';
+
+            return markup;
+        };
+
+        return DropDown;
+    })();
 
     return Jute;
 })();
